@@ -47,7 +47,7 @@ export class UsersController {
   // }
 
   @ApiBearerAuth()
-  @UseGuards(JwtGuard, new PermissionGuard(['get-user']))
+  @UseGuards(JwtGuard, new PermissionGuard(['get-user-details']))
   @Get('me')
   findMe(@GetUser() user: any) {
     return user;

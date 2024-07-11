@@ -15,12 +15,11 @@ export const PermissionZ = extendApi(
   }),
 );
 
-export class PermissionDto extends createZodDto(PermissionZ) {}
-export class PermissionResponse extends createZodDto(
+export const PermissionResponse = createZodDto(
   ResponseBase.extend({
     data: z.object({
-      items: z.array(PermissionDto.zodSchema.omit({ permissionGroup: true })),
+      items: z.array(PermissionZ.omit({ permissionGroup: true })),
       meta: MetaBase,
     }),
   }),
-) {}
+);

@@ -12,6 +12,7 @@ import {
   SignInExampleResponse,
   SignInResponse,
   SignUpDto,
+  SignUpExampleResponse,
   SignUpResponse,
 } from './dto';
 import { ZodValidationPipe } from '@anatine/zod-nestjs';
@@ -26,7 +27,7 @@ export class AuthsController {
   constructor(private readonly authsService: AuthsService) {}
 
   @Post('sign-up')
-  @ApiResponse({ status: 200, type: SignInExampleResponse })
+  @ApiResponse({ status: 200, type: SignUpExampleResponse })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async signUp(
     @Body() signUpDto: SignUpDto,

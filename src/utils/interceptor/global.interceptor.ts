@@ -10,7 +10,7 @@ import { responseMessageKey } from '../decorator';
 import { ZodIssue } from 'zod';
 
 export interface IResponse<T> {
-  //   status: boolean;
+  status: boolean;
   statusCode: any;
   path: string;
   timestamp: string;
@@ -35,6 +35,7 @@ export class TransformInterceptor<T>
     return next.handle().pipe(
       map((data) => ({
         statusCode: context.switchToHttp().getResponse().statusCode,
+        status: true,
         message,
         timestamp: new Date().toISOString(),
         path: context.switchToHttp().getRequest().url,

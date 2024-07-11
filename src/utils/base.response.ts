@@ -1,10 +1,11 @@
 import { z } from 'zod';
 
 export const ResponseBase = z.object({
+  statusCode: z.number().default(200),
+  status: z.boolean().default(true),
   message: z.string().default('Success'),
   path: z.string(),
   timestamp: z.string().default(new Date().toISOString()),
-  status: z.number().default(200),
 });
 
 export const MetaBase = z.object({

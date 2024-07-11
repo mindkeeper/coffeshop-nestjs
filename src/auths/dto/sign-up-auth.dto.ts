@@ -23,3 +23,9 @@ export class SignUpResponse extends createZodDto(
     access_token: z.string(),
   }),
 ) {}
+
+export const SignUpExampleResponse = createZodDto(
+  z.object({
+    access_token: z.string(),
+  }),
+);

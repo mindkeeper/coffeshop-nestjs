@@ -21,10 +21,10 @@ export class SignInResponse extends createZodDto(
   }),
 ) {}
 
-export class SignInExampleResponse extends createZodDto(
+export const SignInExampleResponse = createZodDto(
   ResponseBase.extend({
     data: z.object({
       access_token: z.string(),
     }),
   }),
-) {}
+);

@@ -1,6 +1,4 @@
 import { MiddlewareConsumer, Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { AuthsModule } from './auths/auths.module';
 import { ConfigModule } from '@nestjs/config';
 import { PrismaModule } from './prisma/prisma.module';
@@ -9,8 +7,8 @@ import { jwtConstant } from './constant';
 import { UsersModule } from './users/users.module';
 import { TokenModule } from './token/token.module';
 import { PermissionsModule } from './admin/permissions/permissions.module';
-import { AdminModule } from './admin/admin.module';
 import { CommonModule } from './common/common.module';
+import { PermissiongGroupModule } from './admin/permission-group/permission-group.module';
 
 @Module({
   imports: [
@@ -22,12 +20,10 @@ import { CommonModule } from './common/common.module';
     PrismaModule,
     UsersModule,
     TokenModule,
-    PermissionsModule,
-    AdminModule,
     CommonModule,
+    PermissionsModule,
+    PermissiongGroupModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
