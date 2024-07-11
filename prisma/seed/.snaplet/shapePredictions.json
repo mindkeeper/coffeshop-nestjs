@@ -1,0 +1,136 @@
+[
+  {
+    "schemaName": "public",
+    "tableName": "permission_groups",
+    "predictions": [
+      {
+        "input": "public permission_groups name",
+        "column": "name",
+        "shape": "COMPANY_NAME",
+        "confidence": 0.9033806324005127,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "public",
+    "tableName": "permissions",
+    "predictions": [
+      {
+        "input": "public permissions perimission_key",
+        "column": "perimissionKey",
+        "shape": "TOKEN",
+        "confidence": 0.5298528671264648,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public permissions permission_name",
+        "column": "permissionName",
+        "shape": "PERMISSION",
+        "confidence": 0.9744569659233093,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "public",
+    "tableName": "profiles",
+    "predictions": [
+      {
+        "input": "public profiles address",
+        "column": "address",
+        "shape": "FULL_ADDRESS",
+        "confidence": 0.9717042446136475,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public profiles first_name",
+        "column": "firstName",
+        "shape": "PERSON_FIRST_NAME",
+        "confidence": 0.9526280164718628,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public profiles image_url",
+        "column": "imageUrl",
+        "shape": "IMAGE_URL",
+        "confidence": 0.9896748661994934,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public profiles last_name",
+        "column": "lastName",
+        "shape": "PERSON_LAST_NAME",
+        "confidence": 0.9607326984405518,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "public",
+    "tableName": "roles",
+    "predictions": [
+      {
+        "input": "public roles role_key",
+        "column": "roleKey",
+        "shape": "ROLE",
+        "confidence": 0.7695258855819702,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public roles role_name",
+        "column": "roleName",
+        "shape": "PERSON_JOB_TITLE",
+        "confidence": 0.8028796911239624,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "public",
+    "tableName": "users",
+    "predictions": [
+      {
+        "input": "public users email",
+        "column": "email",
+        "shape": "EMAIL",
+        "confidence": 0.9942367076873779,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public users password",
+        "column": "password",
+        "shape": "PASSWORD",
+        "confidence": 0.9364579916000366,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public users phone_numer",
+        "column": "phoneNumer",
+        "shape": "PHONE_NUMBER",
+        "confidence": 0.756476640701294,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public users username",
+        "column": "username",
+        "shape": "USERNAME",
+        "confidence": 0.9721010327339172,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  }
+]

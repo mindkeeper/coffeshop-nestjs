@@ -1,0 +1,17 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:14-alpine
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_DB: ${DB_DBNAME_DEV}
+      POSTGRES_USER: ${DB_USERNSME_DEV}
+      POSTGRES_PASSWORD: ${DB_PASSWORD_DEV}
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:
+    driver: local

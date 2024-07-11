@@ -1,0 +1,9 @@
+model PermissionGroup {
+    id          Int          @id @default(autoincrement())
+    name        String       @db.VarChar(50)
+    permissions Permission[]
+    createdAt   DateTime     @default(now())
+    updatedAt   DateTime     @updatedAt
+
+    @@map("permission_groups")
+}

@@ -1,0 +1,14 @@
+model Profile {
+    id        Int       @id @default(autoincrement())
+    imageUrl  String?
+    firstName String?   @db.VarChar(50)
+    lastName  String?   @db.VarChar(50)
+    birthDate DateTime? @db.Date
+    address   String?   @db.Text
+    userId    Int       @unique
+    user      User      @relation(fields: [userId], references: [id])
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+
+    @@map("profiles")
+}
