@@ -7,6 +7,7 @@ import {
   // Param,
   // Delete,
   UseGuards,
+  UsePipes,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 // import { CreateUserDto } from './dto/create-user.dto';
@@ -15,9 +16,11 @@ import { GetUser } from './decorator';
 import { JwtGuard } from 'src/token/guard';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { PermissionGuard } from 'src/token/strategy';
+import { ZodValidationPipe } from '@anatine/zod-nestjs';
 
 @Controller('users')
 @ApiTags('users')
+@UsePipes(ZodValidationPipe)
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 

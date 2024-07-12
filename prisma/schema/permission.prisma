@@ -1,8 +1,8 @@
 model Permission {
     id                Int              @id @default(autoincrement())
-    perimissionKey    String           @unique @db.VarChar(50)
+    permissionKey     String           @unique @db.VarChar(50)
     permissionName    String           @db.VarChar(50)
-    permissionGroup   PermissionGroup  @relation(fields: [permissionGroupId], references: [id])
+    permissionGroup   PermissionGroup  @relation(fields: [permissionGroupId], references: [id], onDelete: Cascade, onUpdate: Cascade)
     permissionGroupId Int
     roles             RolePermission[]
     createdAt         DateTime         @default(now())

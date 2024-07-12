@@ -19,7 +19,7 @@ export class UsersService {
             permissions: {
               select: {
                 permission: {
-                  select: { perimissionKey: true },
+                  select: { permissionKey: true },
                 },
               },
             },

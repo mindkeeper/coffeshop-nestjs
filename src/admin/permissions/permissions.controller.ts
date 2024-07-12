@@ -1,19 +1,30 @@
 import {
+  Body,
   Controller,
   DefaultValuePipe,
   Get,
   ParseIntPipe,
+  Post,
   Query,
   UseGuards,
+  UsePipes,
 } from '@nestjs/common';
 import { PermissionsService } from './permissions.service';
 import { ApiBearerAuth, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtGuard } from 'src/token/guard';
-import { PermissionResponse } from './dto';
+import {
+  PermissionDetailResponse,
+  PermissionDto,
+  PermissionResponse,
+  TAllPermissions,
+  TPermissionDetail,
+} from './dto';
 import { PermissionGuard } from 'src/token/strategy';
+import { ZodValidationPipe } from '@anatine/zod-nestjs';
 
 @ApiTags('permissions')
 @ApiBearerAuth()
+@UsePipes(ZodValidationPipe)
 @Controller('admin/permissions')
 export class PermissionsController {
   constructor(private readonly permissionsService: PermissionsService) {}
@@ -40,7 +51,7 @@ export class PermissionsController {
     @Query('perPage', new ParseIntPipe({ optional: true })) perPage: number,
     @Query('sortField', new DefaultValuePipe('id')) sortField: string,
     @Query('sortDirection', new DefaultValuePipe('desc')) sortDirection: string,
-  ) {
+  ): Promise<TAllPermissions> {
     const query = {
       permissionName,
       permissionGroup,
@@ -50,5 +61,31 @@ export class PermissionsController {
       perPage,
     };
     return await this.permissionsService.findAllPermissions(query);
+  }
+
+  @Get(':id')
+  @ApiResponse({ status: 403, description: 'Forbidden' })
+  @ApiResponse({ status: 404, description: 'Not Found' })
+  @ApiResponse({
+    status: 200,
+    description: 'Return permission by id',
+    type: PermissionDetailResponse,
+  })
+  @UseGuards(JwtGuard, new PermissionGuard(['get-permission-details']))
+  async findPermissionById(
+    @Query('id', new ParseIntPipe()) id: number,
+  ): Promise<TPermissionDetail> {
+    return await this.permissionsService.findPermissionById(id);
+  }
+
+  @Post()
+  @ApiResponse({ status: 403, description: 'Forbidden' })
+  @ApiResponse({
+    status: 201,
+    description: 'Permission created successfully',
+  })
+  @UseGuards(JwtGuard, new PermissionGuard(['create-permission']))
+  async createPermission(@Body() body: PermissionDto) {
+    return await this.permissionsService.createPermission(body);
   }
 }

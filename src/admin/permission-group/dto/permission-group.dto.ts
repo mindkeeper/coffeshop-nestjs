@@ -11,7 +11,7 @@ export const PermissionGroupZ = extendApi(
       z.object({
         id: z.number(),
         permissionName: z.string(),
-        perimissionKey: z.string(),
+        permissionKey: z.string(),
       }),
     ),
   }),

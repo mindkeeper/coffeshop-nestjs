@@ -1,11 +1,13 @@
 import { Injectable } from '@nestjs/common';
+import { NotFoundError } from 'rxjs';
 import { PaginatorService } from 'src/common/paginatior.service';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { PermissionDto, TAllPermissions, TPermissionQuery } from './dto';
 
 type TPermission = {
   id: number;
   permissionName: string;
-  perimissionKey: string; // Note the typo here, it should match the Prisma schema if it's a typo there as well.
+  permissionKey: string; // Note the typo here, it should match the Prisma schema if it's a typo there as well.
   permissionGroup: {
     name: string;
   };
@@ -18,8 +20,8 @@ export class PermissionsService {
     private paginator: PaginatorService,
   ) {}
 
-  async findAllPermissions(query?: any) {
-    const filter = [];
+  async findAllPermissions(query: TPermissionQuery): Promise<TAllPermissions> {
+    const filter: any[] = [];
     if (query.permissionName) {
       filter.push({
         permissionName: { contains: query.permissionName, mode: 'insensitive' },
@@ -42,7 +44,7 @@ export class PermissionsService {
         select: {
           id: true,
           permissionName: true,
-          perimissionKey: true,
+          permissionKey: true,
           permissionGroup: { select: { name: true } },
         },
         orderBy: {
@@ -51,14 +53,46 @@ export class PermissionsService {
       },
       { page: query.page, perPage: query.perPage },
     );
-
-    const permissions = items.map(
-      ({ permissionGroup, ...rest }: TPermission) => ({
-        ...rest,
-        permissionGroupName: permissionGroup.name,
-      }),
-    );
+    const itemsData = items as TPermission[];
+    const permissions = itemsData.map(({ permissionGroup, ...rest }) => ({
+      ...rest,
+      permissionGroupName: permissionGroup.name,
+    }));
 
     return { items: permissions, meta };
+  }
+
+  async findPermissionById(id: number) {
+    const permission = await this.prisma.permission.findUnique({
+      where: { id },
+      select: {
+        id: true,
+        permissionName: true,
+        permissionKey: true,
+        permissionGroup: { select: { name: true } },
+        roles: {
+          select: { role: { select: { roleKey: true, roleName: true } } },
+        },
+      },
+    });
+
+    if (!permission) {
+      throw new NotFoundError('Permission not found');
+    }
+
+    const { permissionGroup, ...rest } = permission;
+    const permissionGroupName = permissionGroup.name;
+    const mappedRoles = permission.roles.map(({ role }) => role);
+
+    return {
+      ...rest,
+      roles: mappedRoles,
+      permissionGroupName,
+    };
+  }
+  async createPermission(data: PermissionDto) {
+    await this.prisma.permission.createMany({
+      data,
+    });
   }
 }

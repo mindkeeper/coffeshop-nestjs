@@ -41,7 +41,7 @@ export class AuthsService {
     });
     if (!user)
       throw new UnauthorizedException('Email or password is incorrect');
-    if (!bcrypt.compareSync(password, user.password))
+    if (!bcrypt.compareSync(password, user.password!))
       throw new UnauthorizedException('Email or password is incorrect');
 
     return { email: user.email };

@@ -1,7 +1,7 @@
 model RolePermission {
-    permission   Permission @relation(fields: [permissionId], references: [id])
+    permission   Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade, onUpdate: Cascade)
     permissionId Int
-    role         Role       @relation(fields: [roleId], references: [id])
+    role         Role       @relation(fields: [roleId], references: [id], onDelete: Cascade, onUpdate: Cascade)
     roleId       Int
     createdAt    DateTime   @default(now())
     updatedAt    DateTime   @updatedAt

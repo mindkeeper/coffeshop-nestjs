@@ -46,7 +46,7 @@ export class HttpExceptionFIlter implements ExceptionFilter {
       switch (exception.code) {
         case 'P2002':
           status = 400;
-          message = `${exception.meta.target[0]} already exists`;
+          message = `${(exception?.meta?.target as string[])[0]} already exists`;
           break;
 
         default:
@@ -54,6 +54,9 @@ export class HttpExceptionFIlter implements ExceptionFilter {
           message = 'An unexpected database error occurred';
           break;
       }
+    } else if (exception instanceof ZodError) {
+      status = 400;
+      message = exception.issues;
     } else {
       // Default case for unhandled exceptions
       status = 500;

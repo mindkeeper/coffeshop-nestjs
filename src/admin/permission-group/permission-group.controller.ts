@@ -10,6 +10,7 @@ import {
   Post,
   Query,
   UseGuards,
+  UsePipes,
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
@@ -29,9 +30,11 @@ import {
 } from './dto';
 import { PermissionGuard } from 'src/token/strategy';
 import { PermissionGroupsService } from './permission-group.service';
+import { ZodValidationPipe } from '@anatine/zod-nestjs';
 
 @ApiTags('permission-groups')
 @ApiBearerAuth()
+@UsePipes(ZodValidationPipe)
 @Controller('admin/permissions')
 export class PermissionGroupController {
   constructor(
@@ -47,7 +50,10 @@ export class PermissionGroupController {
   @ApiQuery({ name: 'sortDirection', required: false })
   @ApiQuery({ name: 'sortField', required: false })
   @ApiResponse({ status: 403, description: 'Forbidden' })
-  @ApiCreatedResponse({ type: PermissionGroupResponse })
+  @ApiCreatedResponse({
+    type: PermissionGroupResponse,
+    description: 'Return all groups',
+  })
   async findAllGroups(
     @Query('name') name?: string,
     @Query('page', new ParseIntPipe({ optional: true })) page?: number,

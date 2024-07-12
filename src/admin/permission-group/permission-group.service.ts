@@ -15,7 +15,7 @@ export class PermissionGroupsService {
   ) {}
 
   async findAllGroups(query?: any): Promise<TBasePermissionGroups> {
-    const filter = [];
+    const filter: any[] = [];
     if (query.name) {
       filter.push({ name: { contains: query.name, mode: 'insensitive' } });
     }
@@ -47,7 +47,7 @@ export class PermissionGroupsService {
           select: {
             id: true,
             permissionName: true,
-            perimissionKey: true,
+            permissionKey: true,
           },
         },
       },
